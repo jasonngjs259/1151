@@ -22,22 +22,26 @@ body{
   border: solid;
   width: 1000px;
   height: 600px;
+  cursor: url(https://api.iconify.design/noto-v1/kitchen-knife.svg?width=50&height=50&rotate=90deg),auto;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
 }
 
 #cutting-area{
   border: solid;
   position: absolute;
-  top: 300px;
+  top: 500px;
   left: 400px;
-  width: 700px;
-  height: 50px;
+  width: 50rem;
+  height: 3rem;
 }
 
-#cutting-area:before{
+/* #cutting-area:after{
   content: '';
   position: absolute;
   width: 100%;
   height: 100%;
   border-bottom: 2px red dashed;
   transform: translateY(-50%);
-}
+} */
