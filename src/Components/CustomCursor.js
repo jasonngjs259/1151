@@ -11,7 +11,7 @@ export const CustomCursor = () => {
     destinationY: 0,
     distanceX: 0,
     distanceY: 0,
-    key: -1,
+    key: 0,
   })
 
   useEffect(()=>{
