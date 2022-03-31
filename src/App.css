@@ -38,7 +38,8 @@ body{
 }
 
 #cutting-area:after{
-  content: '';
+  content: url(https://api.iconify.design/bytesize/arrow-right.svg?width=100&height=100);
+  text-align: center;
   position: absolute;
   width: 100%;
   height: 100%;
