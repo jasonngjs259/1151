@@ -4,17 +4,33 @@ import './App.scss';
 const App = () => {
   let endPointX, endPointY
   let slice = "false";
-  const ChickenSlices = [
+  const Slices = [
     {id: 'cutting-area1'},
     {id: 'cutting-area2'},
-    {id: 'cutting-area3'},
+    {id: 'cutting-area3'},    
   ]
+  // const Slices = [
+  //   {
+  //     name: 'chicken', 
+  //     values:[
+  //       {id: 'cutting-area1'},
+  //       {id: 'cutting-area2'},
+  //       {id: 'cutting-area3'},
+  //     ]
+  //   },
+  //   {
+  //     name: 'fish',
+  //     values:[
+  //       {id: 'cutting-area1'},
+  //       {id: 'cutting-area2'},
+  //     ]
+  //   }
+  // ]
 
-  const segment = 4
-
-  console.log(ChickenSlices.length);
+  const segment = 6
 
   const move = (e) => {
+    // console.log(e);
     const cuttingArea = document.getElementById(e.target.id);
 
     document.getElementById("coordinate-x").innerText = e.clientX
@@ -73,25 +89,26 @@ const App = () => {
     }
   }
 
-  const add = (e) => {
+  const add = () => {
     endPointX = null;
     endPointY = null;
     slice = "false"
     document.getElementById("cutting-result").innerText = slice;
-    document.getElementById(e.target.id).addEventListener('mousemove',move)
+    document.getElementById("chopping-board").addEventListener('mousemove',move)
 
   }
 
-  const remove = (e) => {
-    document.getElementById(e.target.id).removeEventListener('mousemove',move);
-
+  const remove = () => {
+    document.getElementById("chopping-board").removeEventListener('mousemove',move);
   }
 
   return (
     <>
-      <div id="chopping-board" onMouseDown={add} onMouseUp={remove}>
-        <div id="ingredient">
-          {ChickenSlices.map((Slice)=>(<div className="cutting-area" key={Slice.id} id={Slice.id}></div>))}
+      <div id="chopping-board" onMouseDown={add} onMouseUp={remove}>        
+        <div className="ingredient" id="">
+          {Slices.map((Slice)=>(
+              <div className="cutting-area" key={Slice?.id} id={Slice?.id}></div>            
+          ))}
         </div>
         
       </div>
