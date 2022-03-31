@@ -31,17 +31,17 @@ body{
 #cutting-area{
   border: solid;
   position: absolute;
-  top: 500px;
-  left: 400px;
+  top: 400px;
+  left: 300px;
   width: 50rem;
   height: 3rem;
 }
 
-/* #cutting-area:after{
+#cutting-area:after{
   content: '';
   position: absolute;
   width: 100%;
   height: 100%;
   border-bottom: 2px red dashed;
   transform: translateY(-50%);
-} */
+}

@@ -1,48 +1,67 @@
-import React, {useEffect} from 'react'
+import React, { useState } from 'react'
 import './App.css';
-
-
 
 const App = () => {
   let offsetX, offsetY
   let startPointX, startPointY, endPointX, endPointY
 
-  useEffect(() => {
-    const move = (e) => {
-      const el = e.target
-      const cuttingArea = document.getElementById("cutting-area");
-      el.style.left = `${e.pageX - offsetX}px`
-      el.style.top = `${e.pageY - offsetY}px`
-      document.getElementById("coordinate-x").innerText = e.clientX
-      document.getElementById("coordinate-y").innerText = e.clientY
-      // document.getElementById("coordinate-x").innerText = el.style.left
-      // document.getElementById("coordinate-y").innerText = el.style.top
-  
-      if((e.clientX <= cuttingArea.getBoundingClientRect().left || e.clientX >= (cuttingArea.getBoundingClientRect().left+cuttingArea.clientWidth)) ||
-        (e.clientY <= cuttingArea.getBoundingClientRect().top || e.clientY >= (cuttingArea.getBoundingClientRect().top+cuttingArea.clientHeight)))
-          // if((e.clientY <= cuttingArea.getBoundingClientRect().top || e.clientY >= (cuttingArea.getBoundingClientRect().top+cuttingArea.clientHeight)))
-      {      
-        console.log(false)
-      }
-      else{
-        console.log(true)
-        startPointX = e.clientX;
-        startPointY = e.clientY;
-      }
-  
-      console.log(startPointX);
-  
-      // if(e.clientX === document.getElementById("cutting-area").getBoundingClientRect().left || e.clientX === ((document.getElementById("cutting-area").getBoundingClientRect().left)+(document.getElementById("cutting-area").clientWidth)))
-      // {
-      //   console.log("start")
-      // }
-    }
-  },[])
+  const [slice,setSlice] = useState("false")
 
-  
+  const move = (e) => {
+    const el = e.target
+    const cuttingArea = document.getElementById("cutting-area");
+    el.style.left = `${e.pageX - offsetX}px`
+    el.style.top = `${e.pageY - offsetY}px`
+    document.getElementById("coordinate-x").innerText = e.clientX
+    document.getElementById("coordinate-y").innerText = e.clientY
+
+    if((e.clientX <= cuttingArea.getBoundingClientRect().left || e.clientX >= (cuttingArea.getBoundingClientRect().left+cuttingArea.clientWidth)) ||
+      (e.clientY <= cuttingArea.getBoundingClientRect().top || e.clientY >= (cuttingArea.getBoundingClientRect().top+cuttingArea.clientHeight)))
+        // if((e.clientY <= cuttingArea.getBoundingClientRect().top || e.clientY >= (cuttingArea.getBoundingClientRect().top+cuttingArea.clientHeight)))
+    {      
+      console.log(false)
+    }
+    else
+    {
+      console.log(true)
+    }
+
+    if(e.clientX === cuttingArea.getBoundingClientRect().left)
+    {
+      startPointX = cuttingArea.getBoundingClientRect().left;
+      console.log("Start point: " + startPointX);
+      endPointX = cuttingArea.getBoundingClientRect().left+cuttingArea.clientWidth;
+      console.log("End point: " + endPointX);
+
+    }
+    else if(e.clientX === (cuttingArea.getBoundingClientRect().left+cuttingArea.clientWidth))
+    {
+      startPointX = cuttingArea.getBoundingClientRect().left+cuttingArea.clientWidth;
+      console.log("Start point: " + startPointX);
+      endPointX = cuttingArea.getBoundingClientRect().left;
+      console.log("End point: " + endPointX);
+    }
+
+    // if(startPointX !== undefined && startPointX === cuttingArea.getBoundingClientRect().left)
+    // {
+    //   endPointX = cuttingArea.getBoundingClientRect().left+cuttingArea.clientWidth 
+    // }
+    // else if(startPointX !== undefined && startPointX === (cuttingArea.getBoundingClientRect().left+cuttingArea.clientWidth))
+    // {
+    //   endPointX = cuttingArea.getBoundingClientRect().left
+    // }
+
+    if((endPointX !== undefined && endPointX === e.clientX) || (endPointY !== undefined && endPointY === e.clientY))
+    {
+      setSlice("true")
+    }
+    else
+    {
+      setSlice("false")
+    }
+  }  
 
   const add = (e) => {
-
     const el = e.target
     const cuttingArea = document.getElementById("cutting-area");
 
@@ -67,10 +86,8 @@ const App = () => {
 
   return (
     <>
-      <div id="chopping-board" onMouseDown={add} onMouseUp={remove} onTouchStart={add} onTouchEnd={remove}>
+      <div id="chopping-board" onMouseDown={add} onMouseUp={remove}>
         <div id="cutting-area"></div>
-        {/* <div id="ball" onMouseDown={add} onMouseUp={remove}></div>         */}
-        {/* <div id="ball" onMouseMove={add}></div> */}
       </div>
       <label>Coordinate:</label>
       <label>(X):</label>
@@ -78,7 +95,7 @@ const App = () => {
       &nbsp;
       <label>(Y):</label>
       <label id="coordinate-y"></label><br/>
-      <label>Sliced: <span id="cut-result"></span></label>
+      <label>Sliced: {slice}</label>
     </>
   );
 }
