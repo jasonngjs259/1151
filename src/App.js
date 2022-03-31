@@ -1,66 +1,73 @@
+import React from 'react'
 import './App.css';
 
 const App = () => {
-  let offsetX, offsetY
+  let endPointX, endPointY
+
   const move = (e) => {
-    const el = e.target
-    el.style.left = `${e.pageX - offsetX}px`
-    el.style.top = `${e.pageY - offsetY}px`
+    const cuttingArea = document.getElementById("cutting-area");
+
     document.getElementById("coordinate-x").innerText = e.clientX
     document.getElementById("coordinate-y").innerText = e.clientY
-    // document.getElementById("coordinate-x").innerText = el.style.left
-    // document.getElementById("coordinate-y").innerText = el.style.top
 
-    if((e.clientX <= 1231 && e.clientX >= 229) && (e.clientY >= 170 && e.clientY <= 775))
+    if((e.clientY <= cuttingArea.getBoundingClientRect().top || e.clientY >= (cuttingArea.getBoundingClientRect().top+cuttingArea.clientHeight)))
+    // if((e.clientX <= cuttingArea.getBoundingClientRect().left || e.clientX >= (cuttingArea.getBoundingClientRect().left+cuttingArea.clientWidth)) ||
+    //   (e.clientY <= cuttingArea.getBoundingClientRect().top || e.clientY >= (cuttingArea.getBoundingClientRect().top+cuttingArea.clientHeight)))
+        // if((e.clientY <= cuttingArea.getBoundingClientRect().top || e.clientY >= (cuttingArea.getBoundingClientRect().top+cuttingArea.clientHeight)))
+    {      
+      console.log(false)
+      endPointX = null;
+      // endPointY = null;
+    }
+    else
     {
       console.log(true)
     }
-    else{
-      console.log(false)
-      el.removeEventListener('mousemove',move)
+
+    if(endPointX === null && (e.clientX === cuttingArea.getBoundingClientRect().left || e.clientX <= (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth) / 4)))
+    {
+      console.log(cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth) / 4)
+      endPointX = cuttingArea.getBoundingClientRect().left+cuttingArea.clientWidth;
+      console.log("End Point: " + endPointX);
+    }
+    else if(endPointX === null && (e.clientX === (cuttingArea.getBoundingClientRect().left+cuttingArea.clientWidth) || e.clientX >= (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth) * 3 / 4)))
+    {
+      console.log((cuttingArea.getBoundingClientRect().left) + (cuttingArea.clientWidth) * 3 / 4)
+      endPointX = cuttingArea.getBoundingClientRect().left;
+      console.log("End Point: " + endPointX);
     }
 
-    // if(e.clientX === document.getElementById("cutting-area").getBoundingClientRect().left || e.clientX === ((document.getElementById("cutting-area").getBoundingClientRect().left)+(document.getElementById("cutting-area").clientWidth)))
-    // {
-    //   console.log("start")
-    // }
+    if(endPointX === e.clientX)
+    {
+      document.getElementById("cutting-result").innerText = "true";
+    }
+  }
+  
+  const add = () => {
+    endPointX = null;
+    endPointY = null;
+    document.getElementById("cutting-result").innerText = "false";
+    document.getElementById("chopping-board").addEventListener('mousemove',move)
+    document.getElementById("cutting-area").addEventListener('mousemove',move)
   }
 
-  const add = (e) => {
-    const el = e.target
-    
-    offsetX = e.clientX - el.getBoundingClientRect().left
-    offsetY = e.clientY - el.getBoundingClientRect().top
-    el.addEventListener('mousemove',move)
-
-    console.log("getBoundingClientRect Top:" + el.getBoundingClientRect().top)
-    console.log("getBoundingClientRect Left:" + el.getBoundingClientRect().left)
-    console.log("ClientX:" + e.clientX)
-    console.log("ClientY:" + e.clientY)
+  const remove = () => {
+    document.getElementById("chopping-board").removeEventListener('mousemove',move);
+    document.getElementById("cutting-area").removeEventListener('mousemove',move);
   }
-
-  // const remove = (e) => {
-  //   const el = e.target    
-  //   el.removeEventListener('mousemove',move)
-
-  //   console.log(document.getElementById("cutting-area").clientWidth);
-  //   console.log(document.getElementById("cutting-area").getBoundingClientRect().left)
-  //   console.log((document.getElementById("cutting-area").getBoundingClientRect().left)+(document.getElementById("cutting-area").clientWidth))
-  // }
 
   return (
     <>
-      <div id="chopping-board">
+      <div id="chopping-board" onMouseDown={add} onMouseUp={remove}>
         <div id="cutting-area"></div>
-        {/* <div id="ball" onMouseDown={add} onMouseUp={remove}></div>         */}
-        <div id="ball" onMouseMove={add}></div>
       </div>
       <label>Coordinate:</label>
       <label>(X):</label>
       <label id="coordinate-x"></label>
       &nbsp;
       <label>(Y):</label>
-      <label id="coordinate-y"></label>  
+      <label id="coordinate-y"></label><br/>
+      <label>Sliced: <span id="cutting-result">false</span></label>
     </>
   );
 }
