@@ -15,11 +15,15 @@ body{
 
 .ingredient{
   border: solid;
-  width: 700px;
-  height: 300px;
+  width: 336px;
+  height: 150px;
   position: absolute;
   left: 25%;
   top: 25%;
+}
+
+#chicken{
+  background: url('images/Chicken Drumstick.jpg');
 }
 
 .cutting-area{
