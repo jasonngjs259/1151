@@ -10,8 +10,7 @@ body{
   left: 100px;
   border: solid;
   width: 1200px;
-  height: 800px;
-  cursor: url(https://api.iconify.design/noto-v1/kitchen-knife.svg?width=50&height=50&rotate=90deg),auto;
+  height: 800px;  
   z-index: 10;
 }
 
@@ -32,6 +31,10 @@ body{
   position: absolute;
 }
 
+.cutting-area:active{
+    cursor: url(https://api.iconify.design/noto-v1/kitchen-knife.svg?width=50&height=50&rotate=90deg),auto;
+}
+
 .cutting-area:before{
   content: '';
   position: absolute;
@@ -40,7 +43,7 @@ body{
 }
 
 #cutting-area1{
-//   border:solid;
+  border:solid;
   top: 50%;
   left: 0;
   width: 100%;
@@ -53,7 +56,7 @@ body{
 }
 
 #cutting-area2{
-//   border:solid;
+  border:solid;
   width: 3rem;
   height: 100%;
   left: 25%;
@@ -67,7 +70,7 @@ body{
 }
 
 #cutting-area3{
-//   border:solid;
+  border:solid;
   width: 3rem;
   height: 100%;
   left: 75%;
