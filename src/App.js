@@ -4,7 +4,7 @@ import './App.scss';
 const App = () => {
   let endPointX, endPointY
   const [sliced, setSliced] = useState("false");
-  let slice = "false";
+//   let slice = "false";
   const Slices = [
     {id: 'cutting-area1'},
     {id: 'cutting-area2'},
@@ -98,7 +98,78 @@ const App = () => {
       else
       {
         setSliced("true");
-        document.getElementById("cutting-result").innerText = sliced;
+        // document.getElementById("cutting-result").innerText = sliced;
+      }
+    }
+  }
+
+  const touchMove = (e) => {
+    const cuttingArea = document.getElementById("cutting-area"+(Slices.length - i));
+    document.getElementById("catchEvent").innerText = "cutting-area"+(Slices.length - i);
+
+    document.getElementById("coordinate-x").innerText = e.touches[0].clientX
+    document.getElementById("coordinate-y").innerText = e.touches[0].clientY
+
+    if(cuttingArea.clientWidth >= cuttingArea.clientHeight)
+    {
+        if((e.touches[0].clientX < cuttingArea.getBoundingClientRect().left || e.touches[0].clientX > (cuttingArea.getBoundingClientRect().left + cuttingArea.clientWidth)))
+        {      
+        //   console.log("Y: " + false)
+          endPointY = null;
+        }
+
+        if(endPointX === null && 
+            (e.touches[0].clientX === cuttingArea.getBoundingClientRect().left || e.touches[0].clientX <= (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth / segment))))
+          {
+          //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth / segment)))
+            endPointX = cuttingArea.getBoundingClientRect().left + cuttingArea.clientWidth;
+            // console.log("End Point: " + endPointX);
+          }
+          else if(endPointX === null && 
+            (e.touches[0].clientX === (cuttingArea.getBoundingClientRect().left + cuttingArea.clientWidth) || e.touches[0].clientX >= (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth * (segment - 1) / segment))))
+          {
+          //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth * (segment - 1) / segment)))
+            endPointX = cuttingArea.getBoundingClientRect().left;
+            // console.log("End Point: " + endPointX);
+          }
+    }
+    else if(cuttingArea.clientWidth <= cuttingArea.clientHeight)
+    {
+        if((e.touches[0].clientY < cuttingArea.getBoundingClientRect().top || e.touches[0].clientY > (cuttingArea.getBoundingClientRect().top + cuttingArea.clientHeight)))
+        {      
+        //   console.log("X: " + false)
+          endPointX = null;
+        }
+
+        if(endPointY === null && 
+            (e.touches[0].clientY === cuttingArea.getBoundingClientRect().top || e.touches[0].clientY <= (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight / segment))))
+          {
+          //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight / segment)))
+            endPointY = cuttingArea.getBoundingClientRect().top + cuttingArea.clientHeight;
+            // console.log("End Point: " + endPointY);
+          }
+          else if(endPointY === null && 
+            (e.touches[0].clientY === (cuttingArea.getBoundingClientRect().top + cuttingArea.clientHeight) || e.touches[0].clientY >= (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight * (segment - 1) / segment))))
+          {
+          //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight * (segment - 1) / segment)))
+            endPointY = cuttingArea.getBoundingClientRect().top;
+            // console.log("End Point: " + endPointY);
+          }
+    }   
+
+    if(endPointX === e.touches[0].clientX || endPointY === e.touches[0].clientY)
+    {      
+      document.getElementById("cutting-area"+(Slices.length - i)).style.display = "none";
+
+      if(i !== 0)
+      {
+        i -= 1;
+        document.getElementById("cutting-area"+(Slices.length - i)).style.display = "block";        
+      }
+      else
+      {
+        setSliced("true");
+        // document.getElementById("cutting-result").innerText = sliced;
       }
     }
   }
@@ -107,20 +178,19 @@ const App = () => {
     endPointX = null;
     endPointY = null;
     setSliced("false");
-    document.getElementById("cutting-result").innerText = sliced;
-    document.getElementById("chopping-board").addEventListener('mousemove',move)
-    document.getElementById("chopping-board").addEventListener('ontouchmove',move)
-
+    // document.getElementById("cutting-result").innerText = sliced;
+    document.getElementById("chopping-board").addEventListener('mousemove',move);
+    document.getElementById("chopping-board").addEventListener('ontouchmove',touchMove);
   }
 
   const remove = () => {
     document.getElementById("chopping-board").removeEventListener('mousemove',move);
-    document.getElementById("chopping-board").removeEventListener('ontouchmove',move)
+    document.getElementById("chopping-board").removeEventListener('ontouchmove',touchMove);
   }
 
   return (
     <>
-      <div id="chopping-board" onMouseDown={add} onMouseUp={remove}>        
+      <div id="chopping-board" onMouseDown={add} onMouseUp={remove} onTouchStart={add} onTouchEnd={remove}>        
         <div className="ingredient" id="chicken">
           {Slices.map((Slice)=>(
               <div className="cutting-area" key={Slice?.id} id={Slice?.id}></div>            
@@ -143,7 +213,7 @@ const App = () => {
       <label id="coordinate-y"></label><br/>
       <label>Event: </label>
       <label id="catchEvent"></label><br/>
-      <label>Sliced: <span id="cutting-result">{slice}</span></label>
+      <label>Sliced: <span id="cutting-result">{sliced}</span></label>
     </>
   );
 }

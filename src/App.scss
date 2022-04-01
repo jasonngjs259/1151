@@ -35,6 +35,10 @@ body{
     cursor: url(https://api.iconify.design/noto-v1/kitchen-knife.svg?width=50&height=50&rotate=90deg),auto;
 }
 
+.cutting-area:active{
+    cursor: url(https://api.iconify.design/noto-v1/kitchen-knife.svg?width=50&height=50),auto;
+}
+
 .cutting-area:before{
   content: '';
   position: absolute;
