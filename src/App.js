@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.scss';
 
 const App = () => {
   let endPointX, endPointY
+  const [sliced, setSliced] = useState("false");
   let slice = "false";
   const Slices = [
     {id: 'cutting-area1'},
@@ -96,8 +97,8 @@ const App = () => {
       }
       else
       {
-        slice = "true";
-        document.getElementById("cutting-result").innerText = slice;
+        setSliced("true");
+        document.getElementById("cutting-result").innerText = sliced;
       }
     }
   }
@@ -105,7 +106,8 @@ const App = () => {
   const add = () => {
     endPointX = null;
     endPointY = null;
-    document.getElementById("cutting-result").innerText = slice;
+    setSliced("false");
+    document.getElementById("cutting-result").innerText = sliced;
     document.getElementById("chopping-board").addEventListener('mousemove',move)
 
   }
