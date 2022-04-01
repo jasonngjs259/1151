@@ -92,6 +92,7 @@ const App = () => {
   const add = () => {
     endPointX = null;
     endPointY = null;
+    slice = "false";
     document.getElementById("cutting-result").innerText = slice;
     document.getElementById("chopping-board").addEventListener('mousemove',move)
 
