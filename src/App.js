@@ -36,51 +36,52 @@ const App = () => {
     document.getElementById("coordinate-x").innerText = e.clientX
     document.getElementById("coordinate-y").innerText = e.clientY
 
-    if((e.clientY < cuttingArea.getBoundingClientRect().top || e.clientY > (cuttingArea.getBoundingClientRect().top + cuttingArea.clientHeight)))
-    {      
-    //   console.log("X: " + false)
-      endPointX = null;
-    }
+    if(cuttingArea.clientWidth >= cuttingArea.clientHeight)
+    {
+        if((e.clientX < cuttingArea.getBoundingClientRect().left || e.clientX > (cuttingArea.getBoundingClientRect().left + cuttingArea.clientWidth)))
+        {      
+        //   console.log("Y: " + false)
+          endPointY = null;
+        }
 
-    if((e.clientX < cuttingArea.getBoundingClientRect().left || e.clientX > (cuttingArea.getBoundingClientRect().left + cuttingArea.clientWidth)))
-    // if((e.clientX <= cuttingArea.getBoundingClientRect().left || e.clientX >= (cuttingArea.getBoundingClientRect().left+cuttingArea.clientWidth)) ||
-    //   (e.clientY <= cuttingArea.getBoundingClientRect().top || e.clientY >= (cuttingArea.getBoundingClientRect().top+cuttingArea.clientHeight)))
-        // if((e.clientY <= cuttingArea.getBoundingClientRect().top || e.clientY >= (cuttingArea.getBoundingClientRect().top+cuttingArea.clientHeight)))
-    {      
-    //   console.log("Y: " + false)
-      endPointY = null;
-    }    
+        if(endPointX === null && 
+            (e.clientX === cuttingArea.getBoundingClientRect().left || e.clientX <= (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth / segment))))
+          {
+          //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth / segment)))
+            endPointX = cuttingArea.getBoundingClientRect().left + cuttingArea.clientWidth;
+            // console.log("End Point: " + endPointX);
+          }
+          else if(endPointX === null && 
+            (e.clientX === (cuttingArea.getBoundingClientRect().left + cuttingArea.clientWidth) || e.clientX >= (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth * (segment - 1) / segment))))
+          {
+          //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth * (segment - 1) / segment)))
+            endPointX = cuttingArea.getBoundingClientRect().left;
+            // console.log("End Point: " + endPointX);
+          }
+    }
+    else if(cuttingArea.clientWidth <= cuttingArea.clientHeight)
+    {
+        if((e.clientY < cuttingArea.getBoundingClientRect().top || e.clientY > (cuttingArea.getBoundingClientRect().top + cuttingArea.clientHeight)))
+        {      
+        //   console.log("X: " + false)
+          endPointX = null;
+        }
 
-    if(endPointX === null && 
-      (e.clientX === cuttingArea.getBoundingClientRect().left || e.clientX <= (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth / segment))))
-    {
-    //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth / segment)))
-      endPointX = cuttingArea.getBoundingClientRect().left + cuttingArea.clientWidth;
-      console.log("End Point: " + endPointX);
+        if(endPointY === null && 
+            (e.clientY === cuttingArea.getBoundingClientRect().top || e.clientY <= (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight / segment))))
+          {
+          //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight / segment)))
+            endPointY = cuttingArea.getBoundingClientRect().top + cuttingArea.clientHeight;
+            // console.log("End Point: " + endPointY);
+          }
+          else if(endPointY === null && 
+            (e.clientY === (cuttingArea.getBoundingClientRect().top + cuttingArea.clientHeight) || e.clientY >= (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight * (segment - 1) / segment))))
+          {
+          //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight * (segment - 1) / segment)))
+            endPointY = cuttingArea.getBoundingClientRect().top;
+            // console.log("End Point: " + endPointY);
+          }
     }
-    else if(endPointX === null && 
-      (e.clientX === (cuttingArea.getBoundingClientRect().left + cuttingArea.clientWidth) || e.clientX >= (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth * (segment - 1) / segment))))
-    {
-    //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth * (segment - 1) / segment)))
-      endPointX = cuttingArea.getBoundingClientRect().left;
-      console.log("End Point: " + endPointX);
-    }
-    
-    if(endPointY === null && 
-      (e.clientY === cuttingArea.getBoundingClientRect().top || e.clientY <= (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight / segment))))
-    {
-    //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight / segment)))
-      endPointY = cuttingArea.getBoundingClientRect().top + cuttingArea.clientHeight;
-      console.log("End Point: " + endPointY);
-    }
-    else if(endPointY === null && 
-      (e.clientY === (cuttingArea.getBoundingClientRect().top + cuttingArea.clientHeight) || e.clientY >= (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight * (segment - 1) / segment))))
-    {
-    //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight * (segment - 1) / segment)))
-      endPointY = cuttingArea.getBoundingClientRect().top;
-      console.log("End Point: " + endPointY);
-    }
-
 
     if(endPointX === e.clientX || endPointY === e.clientY)
     {  
@@ -107,7 +108,7 @@ const App = () => {
       <div id="chopping-board" onMouseDown={add} onMouseUp={remove}>        
         <div className="ingredient" id="chicken">
           {Slices.map((Slice)=>(
-              <div className="cutting-area" key={Slice?.id} id={Slice?.id}></div>            
+              <div className="cutting-area" key={Slice?.id} id={Slice?.id} onTouchMove={move}></div>            
           ))}
         </div>
         
