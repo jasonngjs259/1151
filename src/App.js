@@ -92,12 +92,13 @@ const App = () => {
 
       if(i !== 0)
       {
+        remove();
         i -= 1;
         document.getElementById("cutting-area"+(Slices.length - i)).style.display = "block";        
       }
       else
       {
-        setSliced("true");
+        setSliced("true");        
         // document.getElementById("cutting-result").innerText = sliced;
       }
     }
