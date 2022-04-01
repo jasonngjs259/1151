@@ -56,14 +56,14 @@ const App = () => {
     {
     //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth / segment)))
       endPointX = cuttingArea.getBoundingClientRect().left + cuttingArea.clientWidth;
-    //   console.log("End Point: " + endPointX);
+      console.log("End Point: " + endPointX);
     }
     else if(endPointX === null && 
       (e.clientX === (cuttingArea.getBoundingClientRect().left + cuttingArea.clientWidth) || e.clientX >= (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth * (segment - 1) / segment))))
     {
     //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth * (segment - 1) / segment)))
       endPointX = cuttingArea.getBoundingClientRect().left;
-    //   console.log("End Point: " + endPointX);
+      console.log("End Point: " + endPointX);
     }
     
     if(endPointY === null && 
@@ -71,14 +71,14 @@ const App = () => {
     {
     //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight / segment)))
       endPointY = cuttingArea.getBoundingClientRect().top + cuttingArea.clientHeight;
-    //   console.log("End Point: " + endPointY);
+      console.log("End Point: " + endPointY);
     }
     else if(endPointY === null && 
       (e.clientY === (cuttingArea.getBoundingClientRect().top + cuttingArea.clientHeight) || e.clientY >= (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight * (segment - 1) / segment))))
     {
     //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight * (segment - 1) / segment)))
       endPointY = cuttingArea.getBoundingClientRect().top;
-    //   console.log("End Point: " + endPointY);
+      console.log("End Point: " + endPointY);
     }
 
 
@@ -113,17 +113,18 @@ const App = () => {
       </div>
 
       <div>
+        <label>Coordinate:</label>
+        <label>(X): </label>
+        <label id="coordinate-x"></label>
+        &nbsp;
+        <label>(Y): </label>
+        <label id="coordinate-y"></label><br/>
         <button>Chicken</button>
         <button>Fish</button>
         <button>Lettuce</button>
       </div><br/>     
       
-      <label>Coordinate:</label>
-      <label>(X): </label>
-      <label id="coordinate-x"></label>
-      &nbsp;
-      <label>(Y): </label>
-      <label id="coordinate-y"></label><br/>
+      
       <label>Event: </label>
       <label id="catchEvent"></label><br/>
       <label>Sliced: <span id="cutting-result">{slice}</span></label>

@@ -40,15 +40,15 @@ body{
 
 #cutting-area1{
 //   border:solid;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 3rem;
+    width: 3rem;
+    height: 100%;
+    left: 50%;
+    top: 0;
 }
 
 #cutting-area1:before{
-  border-bottom: 2px red dashed;
-  transform: translateY(-50%);
+  border-right: 2px red dashed;
+  transform: translateX(-50%);
 }
 
 #cutting-area2{
