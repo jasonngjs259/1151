@@ -180,20 +180,20 @@ const App = () => {
     setSliced("false");
     // document.getElementById("cutting-result").innerText = sliced;
     document.getElementById("chopping-board").addEventListener('mousemove',move);
-    document.getElementById("chopping-board").addEventListener('ontouchmove',touchMove);
+    // document.getElementById("chopping-board").addEventListener('ontouchmove',touchMove);
   }
 
   const remove = () => {
     document.getElementById("chopping-board").removeEventListener('mousemove',move);
-    document.getElementById("chopping-board").removeEventListener('ontouchmove',touchMove);
+    // document.getElementById("chopping-board").removeEventListener('ontouchmove',touchMove);
   }
 
   return (
     <>
-      <div id="chopping-board" onMouseDown={add} onMouseUp={remove} onTouchStart={add} onTouchEnd={remove}>        
+      <div id="chopping-board" onMouseDown={add} onMouseUp={remove}>        
         <div className="ingredient" id="chicken">
           {Slices.map((Slice)=>(
-              <div className="cutting-area" key={Slice?.id} id={Slice?.id}></div>            
+              <div className="cutting-area" key={Slice?.id} id={Slice?.id} onTouchMove={touchMove}></div>            
           ))}
         </div>
         
