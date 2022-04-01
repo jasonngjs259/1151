@@ -29,11 +29,9 @@ const App = () => {
 
   const segment = 4;
 
-  let i = Slices.length - 1
-
   const move = (e) => {
-    const cuttingArea = document.getElementById("cutting-area"+(Slices.length - i));
-    document.getElementById("catchEvent").innerText = "cutting-area"+(Slices.length - i);
+    const cuttingArea = document.getElementById(e.target.id);
+    document.getElementById("catchEvent").innerText = e.target.id;
 
     document.getElementById("coordinate-x").innerText = e.clientX
     document.getElementById("coordinate-y").innerText = e.clientY
@@ -85,19 +83,9 @@ const App = () => {
 
 
     if(endPointX === e.clientX || endPointY === e.clientY)
-    {      
-      document.getElementById("cutting-area"+(Slices.length - i)).style.display = "none";
-
-      if(i !== 0)
-      {
-        i -= 1;
-        document.getElementById("cutting-area"+(Slices.length - i)).style.display = "block";        
-      }
-      else
-      {
+    {  
         slice = "true";
-        document.getElementById("cutting-result").innerText = slice;
-      }
+        document.getElementById("cutting-result").innerText = slice;      
     }
   }
 
