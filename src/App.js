@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import './App.scss';
+import { Icon } from '@iconify/react';
 
 const App = () => {
   let endPointX, endPointY
-  const [sliced, setSliced] = useState("false");
+  const [sliced, setSliced] = useState(false);
 //   let slice = "false";
   const Slices = [
     {id: 'cutting-area1'},
@@ -98,7 +99,7 @@ const App = () => {
       }
       else
       {
-        setSliced("true");        
+        setSliced(true);        
         // document.getElementById("cutting-result").innerText = sliced;
       }
     }
@@ -169,7 +170,7 @@ const App = () => {
       }
       else
       {
-        setSliced("true");
+        setSliced(true);
         // document.getElementById("cutting-result").innerText = sliced;
       }
     }
@@ -178,7 +179,7 @@ const App = () => {
   const add = () => {
     endPointX = null;
     endPointY = null;
-    setSliced("false");
+    setSliced(false);
     // document.getElementById("cutting-result").innerText = sliced;
     document.getElementById("chopping-board").addEventListener('mousemove',move);
     // document.getElementById("chopping-board").addEventListener('ontouchmove',touchMove);
@@ -214,7 +215,7 @@ const App = () => {
       <label id="coordinate-y"></label><br/>
       <label>Event: </label>
       <label id="catchEvent"></label><br/>
-      <label>Sliced: <span id="cutting-result">{sliced}</span></label>
+      <label>Sliced: <span id="cutting-result" style={{color: "lime"}}>{sliced && (<Icon icon="teenyicons:tick-circle-solid" />)}</span></label>
     </>
   );
 }
