@@ -120,7 +120,7 @@ const App = () => {
 
   return (
     <>
-      <div id="chopping-board" onMouseDown={add} onMouseUp={remove} onTouchStart={add} onTouchEnd={remove}>        
+      <div id="chopping-board" onMouseDown={add} onMouseUp={remove}>        
         <div className="ingredient" id="chicken">
           {Slices.map((Slice)=>(
               <div className="cutting-area" key={Slice?.id} id={Slice?.id}></div>            
