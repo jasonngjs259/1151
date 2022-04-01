@@ -52,14 +52,14 @@ const App = () => {
           {
           //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth / segment)))
             endPointX = cuttingArea.getBoundingClientRect().left + cuttingArea.clientWidth;
-            console.log("End Point: " + endPointX);
+            // console.log("End Point: " + endPointX);
           }
           else if(endPointX === null && 
             (e.clientX === (cuttingArea.getBoundingClientRect().left + cuttingArea.clientWidth) || e.clientX >= (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth * (segment - 1) / segment))))
           {
           //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().left + (cuttingArea.clientWidth * (segment - 1) / segment)))
             endPointX = cuttingArea.getBoundingClientRect().left;
-            console.log("End Point: " + endPointX);
+            // console.log("End Point: " + endPointX);
           }
     }
     else if(cuttingArea.clientWidth <= cuttingArea.clientHeight)
@@ -75,14 +75,14 @@ const App = () => {
           {
           //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight / segment)))
             endPointY = cuttingArea.getBoundingClientRect().top + cuttingArea.clientHeight;
-            console.log("End Point: " + endPointY);
+            // console.log("End Point: " + endPointY);
           }
           else if(endPointY === null && 
             (e.clientY === (cuttingArea.getBoundingClientRect().top + cuttingArea.clientHeight) || e.clientY >= (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight * (segment - 1) / segment))))
           {
           //   console.log("Segment: " + (cuttingArea.getBoundingClientRect().top + (cuttingArea.clientHeight * (segment - 1) / segment)))
             endPointY = cuttingArea.getBoundingClientRect().top;
-            console.log("End Point: " + endPointY);
+            // console.log("End Point: " + endPointY);
           }
     }   
 
@@ -118,7 +118,7 @@ const App = () => {
 
   return (
     <>
-      <div id="chopping-board" onMouseDown={add} onMouseUp={remove}>        
+      <div id="chopping-board" onMouseDown={add} onMouseUp={remove} onTouchStart={add} onTouchEnd={remove}>        
         <div className="ingredient" id="chicken">
           {Slices.map((Slice)=>(
               <div className="cutting-area" key={Slice?.id} id={Slice?.id}></div>            
