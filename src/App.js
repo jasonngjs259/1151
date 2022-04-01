@@ -109,11 +109,13 @@ const App = () => {
     setSliced("false");
     document.getElementById("cutting-result").innerText = sliced;
     document.getElementById("chopping-board").addEventListener('mousemove',move)
+    document.getElementById("chopping-board").addEventListener('ontouchmove',move)
 
   }
 
   const remove = () => {
     document.getElementById("chopping-board").removeEventListener('mousemove',move);
+    document.getElementById("chopping-board").removeEventListener('ontouchmove',move)
   }
 
   return (
