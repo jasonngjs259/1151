@@ -137,7 +137,6 @@ const App = () => {
     };
 
     const touchMove = (e) => {
-        document.body.style.overflow = "hidden";
         const cuttingArea = document.getElementById(
             "cutting-area" + (Slices.length - i)
         );
@@ -237,7 +236,6 @@ const App = () => {
             Math.round(endPointY).toFixed(0) ===
                 Math.round(e.touches[0].clientY).toFixed(0)
         ) {
-            document.body.style.overflow = "auto";
             console.log("Sliced: true");
             document.getElementById(
                 "cutting-area" + (Slices.length - i)
