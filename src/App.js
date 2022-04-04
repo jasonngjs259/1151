@@ -137,6 +137,7 @@ const App = () => {
     };
 
     const touchMove = (e) => {
+        document.body.style.overflow = "hidden";
         const cuttingArea = document.getElementById(
             "cutting-area" + (Slices.length - i)
         );
@@ -236,6 +237,7 @@ const App = () => {
             Math.round(endPointY).toFixed(0) ===
                 Math.round(e.touches[0].clientY).toFixed(0)
         ) {
+            document.body.style.overflow = "auto";
             console.log("Sliced: true");
             document.getElementById(
                 "cutting-area" + (Slices.length - i)
@@ -254,7 +256,7 @@ const App = () => {
     };
 
     const add = () => {
-        document.body.style.overflow = "hidden";
+        // document.body.style.overflow = "hidden";
         endPointX = null;
         endPointY = null;
         setSliced(false);
@@ -266,7 +268,7 @@ const App = () => {
     };
 
     const remove = () => {
-        document.body.style.overflow = "auto";
+        // document.body.style.overflow = "auto";
         document
             .getElementById("chopping-board")
             .removeEventListener("mousemove", move);
