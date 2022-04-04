@@ -289,7 +289,6 @@ const App = () => {
                 else 
                 {
                     setSliced(true);
-                    // document.getElementById("cutting-result").innerText = sliced;
                 }
             }
         } 
@@ -310,7 +309,6 @@ const App = () => {
                     document.getElementById("cutting-area" + (Slices.length - i)).style.display = "block";
                 } else {
                     setSliced(true);
-                    // document.getElementById("cutting-result").innerText = sliced;
                 }
             }
         }       
